@@ -103,6 +103,7 @@
             cursor: pointer;
             transition: background-color 0.2s ease;
             flex-shrink: 0;
+            position: relative;
         }
         
         .custom-checkbox:after {
@@ -113,6 +114,7 @@
             border-radius: 2px;
             opacity: 0;
             transition: opacity 0.2s ease;
+            position: absolute;
         }
         
         input[type="checkbox"]:checked + .custom-checkbox:after {
