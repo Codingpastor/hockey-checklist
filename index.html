@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hockey Gear Checklist</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #0066cc;
+        }
+        .checklist {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .checklist-item {
+            margin: 10px 0;
+        }
+        .category {
+            font-weight: bold;
+            margin-top: 15px;
+            color: #0066cc;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        label {
+            cursor: pointer;
+        }
+        .email-signup {
+            background-color: #e6f2ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        input[type="email"] {
+            padding: 10px;
+            width: 60%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #004c99;
+        }
+        .buy-coffee {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .buy-coffee a {
+            display: inline-block;
+            background-color: #ff9933;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .buy-coffee a:hover {
+            background-color: #e68a00;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Hockey Gear Checklist</h1>
+        <p>Never forget your equipment again!</p>
+    </header>
+
+    <div class="checklist">
+        <div class="category">Protection</div>
+        <div class="checklist-item">
+            <input type="checkbox" id="helmet" name="helmet">
+            <label for="helmet">Helmet with cage/visor</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="shoulderpads" name="shoulderpads">
+            <label for="shoulderpads">Shoulder pads</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="elbowpads" name="elbowpads">
+            <label for="elbowpads">Elbow pads</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="gloves" name="gloves">
+            <label for="gloves">Hockey gloves</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="pants" name="pants">
+            <label for="pants">Hockey pants</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="shinpads" name="shinpads">
+            <label for="shinpads">Shin pads</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="mouthguard" name="mouthguard">
+            <label for="mouthguard">Mouth guard</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="neckguard" name="neckguard">
+            <label for="neckguard">Neck guard</label>
+        </div>
+
+        <div class="category">Skates & Stick</div>
+        <div class="checklist-item">
+            <input type="checkbox" id="skates" name="skates">
+            <label for="skates">Hockey skates</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="stick" name="stick">
+            <label for="stick">Hockey stick</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="tape" name="tape">
+            <label for="tape">Hockey tape</label>
+        </div>
+
+        <div class="category">Clothes</div>
+        <div class="checklist-item">
+            <input type="checkbox" id="jersey" name="jersey">
+            <label for="jersey">Jersey</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="socks" name="socks">
+            <label for="socks">Hockey socks</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="jock" name="jock">
+            <label for="jock">Jock/jill with cup/pelvic protector</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="undersocks" name="undersocks">
+            <label for="undersocks">Under socks</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="undershirt" name="undershirt">
+            <label for="undershirt">Base layer/Under shirt</label>
+        </div>
+
+        <div class="category">Extras</div>
+        <div class="checklist-item">
+            <input type="checkbox" id="water" name="water">
+            <label for="water">Water bottle</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="towel" name="towel">
+            <label for="towel">Towel</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="skatesoaker" name="skatesoaker">
+            <label for="skatesoaker">Skate soakers</label>
+        </div>
+    </div>
+
+    <div class="email-signup">
+        <h2>Stay Updated</h2>
+        <p>Sign up for hockey tips, gear recommendations, and more!</p>
+        <form>
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+
+    <div class="buy-coffee">
+        <p>If this checklist helped you, consider supporting me!</p>
+        <a href="#" target="_blank">Buy Me A Coffee ☕</a>
+    </div>
+
+    <footer>
+        <p>© 2025 Hockey Gear Checklist | Created with ❤️ for hockey players</p>
+    </footer>
+
+    <script>
+        // Save checkbox state to local storage
+        document.querySelectorAll('input[type="checkbox"]').forEach(item => {
+            // Load saved state on page load
+            const savedState = localStorage.getItem(item.id);
+            if (savedState === 'true') {
+                item.checked = true;
+            }
+            
+            // Save state when checkbox changes
+            item.addEventListener('change', () => {
+                localStorage.setItem(item.id, item.checked);
+            });
+        });
+
+        // Simple form submission (you'd replace this with your actual email service)
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            alert(`Thanks! ${email} has been added to our list.`);
+            // In a real implementation, you would send this to your backend or email service
+        });
+    </script>
+</body>
+</html>
