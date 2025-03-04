@@ -5,100 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hockey Gear Checklist</title>
     <style>
+        :root {
+            --primary: #0066cc;
+            --primary-dark: #004c99;
+            --secondary: #ff9933;
+            --secondary-dark: #e68a00;
+            --danger: #ff4d4d;
+            --danger-dark: #cc0000;
+            --light: #f5f5f5;
+            --dark: #333;
+            --accent: #00cc99;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f7;
+            color: var(--dark);
+            transition: background-color 1s ease;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            line-height: 1.6;
-            color: #333;
-            transition: background-color 1s ease;
         }
+        
         header {
             text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 0 0 20px 20px;
             margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
+        
         h1 {
-            color: #0066cc;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
-        .checklist {
-            background-color: #f5f5f5;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-            transition: all 0.5s ease;
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
         }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
         .checklist-item {
             margin: 15px 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            padding: 10px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+            display: flex;
+            align-items: center;
         }
-        input[type="checkbox"] {
-            margin-right: 10px;
-            transform: scale(1.2);
+        
+        .checklist-item:hover {
+            background-color: #f9f9f9;
         }
+        
+        .checklist-item input[type="checkbox"] {
+            display: none;
+        }
+        
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--primary);
+            border-radius: 5px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            flex-shrink: 0;
+        }
+        
+        .custom-checkbox:after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary);
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        input[type="checkbox"]:checked + .custom-checkbox:after {
+            opacity: 1;
+        }
+        
+        input[type="checkbox"]:checked + .custom-checkbox {
+            background-color: #e6f2ff;
+        }
+        
+        input[type="checkbox"]:checked ~ label {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
         label {
             cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            flex-grow: 1;
         }
-        .email-signup {
-            background-color: #e6f2ff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-        input[type="email"] {
-            padding: 10px;
-            width: 60%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #0066cc;
+        
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
+            padding: 12px 25px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #004c99;
-        }
-        .buy-coffee {
+            font-weight: bold;
+            transition: all 0.3s ease;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 5px;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .button:active {
+            transform: translateY(0);
+        }
+        
+        .reset-button {
+            background: linear-gradient(135deg, var(--danger) 0%, var(--danger-dark) 100%);
+            width: 100%;
+            margin: 20px 0 10px 0;
+        }
+        
+        .coffee-button {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+            text-decoration: none;
+        }
+        
+        .email-signup {
             margin-top: 30px;
         }
-        .buy-coffee a {
-            display: inline-block;
-            background-color: #ff9933;
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
+        
+        .email-form {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 15px;
         }
-        .buy-coffee a:hover {
-            background-color: #e68a00;
+        
+        .email-input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            min-width: 250px;
         }
+        
+        .email-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
         footer {
             text-align: center;
-            margin-top: 40px;
+            padding: 30px 0;
             color: #666;
-            font-size: 0.9em;
+            font-size: 0.9rem;
+            margin-top: 20px;
         }
-        .reset-button {
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: background-color 0.3s ease;
-        }
-        .reset-button:hover {
-            background-color: #cc0000;
-        }
+        
+        /* Animations */
         .celebration {
             position: fixed;
             top: 0;
@@ -109,13 +216,14 @@
             z-index: 1000;
             display: none;
         }
+        
         .confetti {
             position: absolute;
             width: 10px;
             height: 10px;
-            background-color: #f00;
             opacity: 0;
         }
+        
         @keyframes fall {
             0% {
                 transform: translateY(-100px) rotate(0deg);
@@ -126,162 +234,375 @@
                 opacity: 0;
             }
         }
-        .all-complete-message {
+        
+        .complete-message {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: rgba(0, 102, 204, 0.9);
             color: white;
-            padding: 20px;
-            border-radius: 10px;
-            font-size: 24px;
+            padding: 25px;
+            border-radius: 15px;
+            font-size: 28px;
             font-weight: bold;
             text-align: center;
             z-index: 1001;
             display: none;
             animation: pulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
+        
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(0, 102, 204, 0.7); }
             70% { box-shadow: 0 0 0 20px rgba(0, 102, 204, 0); }
             100% { box-shadow: 0 0 0 0 rgba(0, 102, 204, 0); }
         }
+        
+        /* Hockey rink */
+        .hockey-animation {
+            display: none;
+            position: fixed;
+            bottom: 50px;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            z-index: 999;
+            pointer-events: none;
+        }
+        
+        .rink {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 150px;
+            background-color: #f0f0f7;
+            border: 3px solid var(--primary);
+            border-radius: 50% 50% 0 0;
+            overflow: hidden;
+        }
+        
+        .goal {
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 50px;
+            border: 5px solid var(--primary-dark);
+            border-bottom: none;
+            border-radius: 40px 40px 0 0;
+        }
+        
+        .net {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 5px,
+                rgba(255, 255, 255, 0.3) 5px,
+                rgba(255, 255, 255, 0.3) 7px
+            );
+        }
+        
+        .puck {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            border-radius: 50%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+        
+        @keyframes shootPuck {
+            0% { 
+                top: 120px; 
+                transform: translateX(-50%) scale(1);
+            }
+            80% { 
+                top: 25px; 
+                transform: translateX(-50%) scale(0.8);
+            }
+            100% { 
+                top: 20px; 
+                transform: translateX(-50%) scale(0.7);
+            }
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 5px;
+            color: var(--primary);
+        }
+        
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .email-form {
+                flex-direction: column;
+            }
+            
+            .email-input {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Hockey Gear Checklist</h1>
-        <p>Never forget your equipment again!</p>
+        <h1>HOCKEY GEAR CHECKLIST</h1>
+        <p class="subtitle">Never forget your equipment again!</p>
     </header>
-
-    <button id="resetButton" class="reset-button">Reset Checklist</button>
-
-    <div class="checklist">
-        <div class="checklist-item">
-            <input type="checkbox" id="jock" name="jock">
-            <label for="jock">Jock/jill with cup/pelvic protector</label>
+    
+    <div class="container">
+        <div class="card">
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">0% Complete</div>
+            
+            <div class="checklist">
+                <div class="checklist-item">
+                    <input type="checkbox" id="jock" name="jock">
+                    <div class="custom-checkbox"></div>
+                    <label for="jock">Jock/jill with cup/pelvic protector</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="shinpads" name="shinpads">
+                    <div class="custom-checkbox"></div>
+                    <label for="shinpads">Shin pads</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="socks" name="socks">
+                    <div class="custom-checkbox"></div>
+                    <label for="socks">Hockey socks</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="pants" name="pants">
+                    <div class="custom-checkbox"></div>
+                    <label for="pants">Hockey pants</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="skates" name="skates">
+                    <div class="custom-checkbox"></div>
+                    <label for="skates">Hockey skates</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="shoulderpads" name="shoulderpads">
+                    <div class="custom-checkbox"></div>
+                    <label for="shoulderpads">Shoulder pads</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="elbowpads" name="elbowpads">
+                    <div class="custom-checkbox"></div>
+                    <label for="elbowpads">Elbow pads</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="neckguard" name="neckguard">
+                    <div class="custom-checkbox"></div>
+                    <label for="neckguard">Neck guard</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="jersey" name="jersey">
+                    <div class="custom-checkbox"></div>
+                    <label for="jersey">Jersey</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="helmet" name="helmet">
+                    <div class="custom-checkbox"></div>
+                    <label for="helmet">Helmet with cage/visor</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="gloves" name="gloves">
+                    <div class="custom-checkbox"></div>
+                    <label for="gloves">Hockey gloves</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="stick" name="stick">
+                    <div class="custom-checkbox"></div>
+                    <label for="stick">Hockey stick</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="water" name="water">
+                    <div class="custom-checkbox"></div>
+                    <label for="water">Water bottle</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="mouthguard" name="mouthguard">
+                    <div class="custom-checkbox"></div>
+                    <label for="mouthguard">Mouth guard</label>
+                </div>
+                
+                <button id="resetButton" class="button reset-button">Reset Checklist</button>
+            </div>
         </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="shinpads" name="shinpads">
-            <label for="shinpads">Shin pads</label>
+        
+        <div class="card email-signup">
+            <h2 class="section-title">Stay Updated</h2>
+            <p>Sign up for hockey tips, gear recommendations, and more!</p>
+            <form class="email-form">
+                <input type="email" class="email-input" placeholder="Your email address" required>
+                <button type="submit" class="button">Subscribe</button>
+            </form>
         </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="socks" name="socks">
-            <label for="socks">Hockey socks</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="pants" name="pants">
-            <label for="pants">Hockey pants</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="skates" name="skates">
-            <label for="skates">Hockey skates</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="shoulderpads" name="shoulderpads">
-            <label for="shoulderpads">Shoulder pads</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="elbowpads" name="elbowpads">
-            <label for="elbowpads">Elbow pads</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="neckguard" name="neckguard">
-            <label for="neckguard">Neck guard</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="jersey" name="jersey">
-            <label for="jersey">Jersey</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="helmet" name="helmet">
-            <label for="helmet">Helmet with cage/visor</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="gloves" name="gloves">
-            <label for="gloves">Hockey gloves</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="stick" name="stick">
-            <label for="stick">Hockey stick</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="water" name="water">
-            <label for="water">Water bottle</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="mouthguard" name="mouthguard">
-            <label for="mouthguard">Mouth guard</label>
+        
+        <div class="card">
+            <div class="buy-coffee" style="text-align: center;">
+                <p>If this checklist helped you, consider supporting me!</p>
+                <a href="#" target="_blank" class="button coffee-button">Buy Me A Coffee ☕</a>
+            </div>
         </div>
     </div>
-
-    <div class="email-signup">
-        <h2>Stay Updated</h2>
-        <p>Sign up for hockey tips, gear recommendations, and more!</p>
-        <form>
-            <input type="email" placeholder="Your email address" required>
-            <button type="submit">Subscribe</button>
-        </form>
-    </div>
-
-    <div class="buy-coffee">
-        <p>If this checklist helped you, consider supporting me!</p>
-        <a href="#" target="_blank">Buy Me A Coffee ☕</a>
-    </div>
-
+    
     <div class="celebration" id="celebration"></div>
-    <div class="all-complete-message" id="completeMessage">
+    <div class="complete-message" id="completeMessage">
         All packed! 🏒<br>You're ready to hit the ice!
     </div>
-
+    
+    <div class="hockey-animation" id="hockeyAnimation">
+        <div class="rink">
+            <div class="goal">
+                <div class="net"></div>
+            </div>
+            <div class="puck" id="puck"></div>
+        </div>
+    </div>
+    
     <footer>
         <p>© 2025 Hockey Gear Checklist | Created with ❤️ for hockey players</p>
     </footer>
-
+    
     <script>
-        // Create confetti elements
+        // Get elements
         const celebration = document.getElementById('celebration');
         const completeMessage = document.getElementById('completeMessage');
         const resetButton = document.getElementById('resetButton');
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const confettiColors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#FFA500', '#800080'];
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const hockeyAnimation = document.getElementById('hockeyAnimation');
+        const puck = document.getElementById('puck');
         
         // Create confetti pieces
-        for (let i = 0; i < 100; i++) {
+        const confettiColors = [
+            '#FF0000', '#00FF00', '#0000FF', '#FFFF00', 
+            '#FF00FF', '#00FFFF', '#FFA500', '#800080',
+            '#0066cc', '#ff9933'
+        ];
+        
+        for (let i = 0; i < 150; i++) {
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
             confetti.style.left = Math.random() * 100 + 'vw';
             confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-            confetti.style.width = Math.random() * 10 + 5 + 'px';
-            confetti.style.height = Math.random() * 10 + 5 + 'px';
+            
+            // Random confetti shapes
+            if (Math.random() > 0.5) {
+                confetti.style.borderRadius = '50%';
+            } else {
+                confetti.style.width = Math.random() * 12 + 8 + 'px';
+                confetti.style.height = confetti.style.width;
+            }
+            
             celebration.appendChild(confetti);
         }
-
+        
+        // Update progress bar
+        function updateProgress() {
+            const total = checkboxes.length;
+            const checked = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+            const percentage = Math.floor((checked / total) * 100);
+            
+            progressBar.style.width = percentage + '%';
+            progressText.textContent = percentage + '% Complete';
+            
+            return percentage;
+        }
+        
+        // Hockey goal animation
+        function playHockeyAnimation() {
+            hockeyAnimation.style.display = 'block';
+            puck.style.display = 'block';
+            puck.style.animation = 'shootPuck 1s forwards';
+            
+            // Reset animation after completion
+            setTimeout(() => {
+                puck.style.animation = 'none';
+                setTimeout(() => {
+                    hockeyAnimation.style.display = 'none';
+                    puck.style.display = 'none';
+                }, 100);
+            }, 1500);
+        }
+        
         // Check if all items are checked
         function checkAllComplete() {
-            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            const percentage = updateProgress();
+            const allChecked = percentage === 100;
             
             if (allChecked) {
-                // Play celebration animation
-                celebration.style.display = 'block';
-                completeMessage.style.display = 'block';
-                document.body.style.backgroundColor = '#f0f8ff';
+                // Play hockey animation first
+                playHockeyAnimation();
                 
-                // Animate confetti
-                const confettiElements = document.querySelectorAll('.confetti');
-                confettiElements.forEach((confetti, index) => {
-                    confetti.style.animation = `fall ${Math.random() * 3 + 2}s ease ${Math.random() * 2}s forwards`;
-                    confetti.style.opacity = '1';
-                });
-                
-                // Add subtle animation to checked items
-                document.querySelectorAll('.checklist-item').forEach(item => {
-                    item.style.transform = 'scale(1.03)';
-                    setTimeout(() => {
-                        item.style.transform = 'scale(1)';
-                    }, 300);
-                });
+                // Then show celebration
+                setTimeout(() => {
+                    // Play celebration animation
+                    celebration.style.display = 'block';
+                    completeMessage.style.display = 'block';
+                    document.body.style.backgroundColor = '#f0f8ff';
+                    
+                    // Animate confetti
+                    const confettiElements = document.querySelectorAll('.confetti');
+                    confettiElements.forEach((confetti, index) => {
+                        confetti.style.animation = `fall ${Math.random() * 3 + 2}s ease ${Math.random() * 2}s forwards`;
+                        confetti.style.opacity = '1';
+                    });
+                    
+                    // Add subtle animation to checked items
+                    document.querySelectorAll('.checklist-item').forEach(item => {
+                        item.style.transform = 'scale(1.03)';
+                        setTimeout(() => {
+                            item.style.transform = 'scale(1)';
+                        }, 300);
+                    });
+                }, 800);
             } else {
                 // Hide celebration if not all checked
                 celebration.style.display = 'none';
@@ -295,7 +616,7 @@
                 });
             }
         }
-
+        
         // Save checkbox state to local storage
         checkboxes.forEach(item => {
             // Load saved state on page load
@@ -308,9 +629,16 @@
             item.addEventListener('change', () => {
                 localStorage.setItem(item.id, item.checked);
                 checkAllComplete();
+                
+                // Add a subtle animation to the checkbox
+                const checkboxItem = item.parentElement;
+                checkboxItem.style.backgroundColor = '#e6f2ff';
+                setTimeout(() => {
+                    checkboxItem.style.backgroundColor = '';
+                }, 300);
             });
         });
-
+        
         // Reset button functionality
         resetButton.addEventListener('click', () => {
             checkboxes.forEach(checkbox => {
@@ -325,13 +653,13 @@
                 resetButton.style.transform = 'scale(1)';
             }, 200);
         });
-
-        // Simple form submission (you'd replace this with your actual email service)
+        
+        // Simple form submission
         document.querySelector('form').addEventListener('submit', function(e) {
             e.preventDefault();
             const email = this.querySelector('input[type="email"]').value;
             alert(`Thanks! ${email} has been added to our list.`);
-            // In a real implementation, you would send this to your backend or email service
+            this.querySelector('input[type="email"]').value = '';
         });
         
         // Check on initial load
