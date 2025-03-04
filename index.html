@@ -319,6 +319,10 @@
     </style>
 </head>
 <body>
+    <!-- Audio elements for sound effects -->
+    <audio id="checkSound" src="https://yourusername.github.io/hockey-checklist/check-sound.mp3" preload="auto"></audio>
+    <audio id="completeSound" src="https://yourusername.github.io/hockey-checklist/horn-sound.mp3" preload="auto"></audio>
+    
     <header>
         <h1>HOCKEY GEAR CHECKLIST</h1>
         <p class="subtitle">Never forget a piece of equipment again!</p>
@@ -456,6 +460,13 @@
             } else {
                 item.classList.add('checked');
                 localStorage.setItem(itemId, 'true');
+                
+                // Play check sound
+                const checkSound = document.getElementById('checkSound');
+                if (checkSound) {
+                    checkSound.currentTime = 0;
+                    checkSound.play().catch(e => console.log('Error playing sound:', e));
+                }
             }
             
             updateProgress();
@@ -488,6 +499,12 @@
             
             if (percentage === 100) {
                 celebrateCompletion();
+                // Play completion sound
+                const completeSound = document.getElementById('completeSound');
+                if (completeSound) {
+                    completeSound.currentTime = 0;
+                    completeSound.play().catch(e => console.log('Error playing sound:', e));
+                }
             } else {
                 hideAllCelebrations();
             }
@@ -516,6 +533,11 @@
                     item.style.transform = 'scale(1)';
                 }, 300);
             });
+            
+            // Make celebration message disappear after 5 seconds
+            setTimeout(() => {
+                completeMessage.style.display = 'none';
+            }, 5000);
         }
         
         // Hide all celebrations
