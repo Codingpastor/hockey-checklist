@@ -193,12 +193,23 @@
             outline: none;
         }
         
+        .progress-container {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            padding: 15px 0;
+            z-index: 100;
+            border-radius: 15px 15px 0 0;
+            margin: -25px -25px 20px -25px;
+            padding: 25px 25px 10px 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
         .progress-bar {
             width: 100%;
             height: 10px;
             background-color: #ddd;
             border-radius: 5px;
-            margin: 20px 0;
             overflow: hidden;
         }
         
@@ -355,13 +366,14 @@
                 top: 120px; 
                 transform: translateX(-50%) scale(1);
             }
-            80% { 
-                top: 25px; 
-                transform: translateX(-50%) scale(0.8);
+            70% { 
+                top: 40px; 
+                transform: translateX(-50%) scale(0.9);
             }
             100% { 
-                top: 20px; 
+                top: 10px; 
                 transform: translateX(-50%) scale(0.7);
+                opacity: 0.5;
             }
         }
         
@@ -389,10 +401,12 @@
     
     <div class="container">
         <div class="card">
-            <div class="progress-bar">
-                <div class="progress" id="progressBar"></div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progressBar"></div>
+                </div>
+                <div class="progress-text" id="progressText">0% Complete</div>
             </div>
-            <div class="progress-text" id="progressText">0% Complete</div>
             
             <div class="checklist">
                 <div class="check-item" data-id="jock">
@@ -458,7 +472,7 @@
         
         <div class="card email-signup">
             <h2 class="section-title">Stay Updated</h2>
-            <p>Sign up for hockey tips, gear recommendations, and more!</p>
+            <p>Sign-up for when I make a new hockey tool!</p>
             <form class="email-form">
                 <input type="email" class="email-input" placeholder="Your email address" required>
                 <button type="submit" class="button">Subscribe</button>
@@ -468,7 +482,9 @@
         <div class="card">
             <div class="buy-coffee" style="text-align: center;">
                 <p>If this checklist helped you, consider supporting me!</p>
-                <a href="#" target="_blank" class="button coffee-button">Buy Me A Coffee ☕</a>
+                <div id="bmc-container" style="margin-top: 15px;">
+                    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="davidwicks" data-color="#FFDD00" data-emoji="🏒" data-font="Cookie" data-text="Buy me a roll of tape!" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+                </div>
             </div>
         </div>
     </div>
