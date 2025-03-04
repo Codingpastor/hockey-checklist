@@ -88,41 +88,11 @@
         }
         
         .checklist-item input[type="checkbox"] {
-            display: none;
-        }
-        
-        .custom-checkbox {
             width: 24px;
             height: 24px;
-            border: 2px solid var(--primary);
-            border-radius: 5px;
             margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             cursor: pointer;
-            transition: background-color 0.2s ease;
-            flex-shrink: 0;
-            position: relative;
-        }
-        
-        .custom-checkbox:after {
-            content: '';
-            width: 12px;
-            height: 12px;
-            background-color: var(--primary);
-            border-radius: 2px;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            position: absolute;
-        }
-        
-        input[type="checkbox"]:checked + .custom-checkbox:after {
-            opacity: 1;
-        }
-        
-        input[type="checkbox"]:checked + .custom-checkbox {
-            background-color: #e6f2ff;
+            accent-color: var(--primary);
         }
         
         input[type="checkbox"]:checked ~ label {
@@ -618,6 +588,24 @@
                 });
             }
         }
+        
+        // Fix for custom checkboxes
+        document.querySelectorAll('.checklist-item').forEach(item => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            const customCheckbox = item.querySelector('.custom-checkbox');
+            const label = item.querySelector('label');
+            
+            // Make custom checkbox and label clickable
+            const toggleCheckbox = () => {
+                checkbox.checked = !checkbox.checked;
+                // Trigger change event manually
+                const event = new Event('change');
+                checkbox.dispatchEvent(event);
+            };
+            
+            customCheckbox.addEventListener('click', toggleCheckbox);
+            label.addEventListener('click', toggleCheckbox);
+        });
         
         // Save checkbox state to local storage
         checkboxes.forEach(item => {
