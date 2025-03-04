@@ -319,9 +319,9 @@
     </style>
 </head>
 <body>
-    <!-- Audio elements for sound effects -->
-    <audio id="checkSound" src="https://Codingpastor.github.io/hockey-checklist/shot.mp3" preload="auto"></audio>
-    <audio id="completeSound" src="https://Codingpastor.github.io/hockey-checklist/horn.mp3" preload="auto"></audio>
+    <!-- Audio elements for sound effects with reduced volume -->
+    <audio id="checkSound" src="/sounds/check-sound.mp3" preload="auto"></audio>
+    <audio id="completeSound" src="/sounds/horn-sound.mp3" preload="auto"></audio>
     
     <header>
         <h1>HOCKEY GEAR CHECKLIST</h1>
@@ -436,6 +436,19 @@
         const progressBar = document.getElementById('progressBar');
         const progressText = document.getElementById('progressText');
         
+        // Function to check if checklist should be reset (new day)
+        function shouldResetChecklist() {
+            const lastResetDate = localStorage.getItem('lastResetDate');
+            const currentDate = new Date().toDateString();
+            
+            if (!lastResetDate || lastResetDate !== currentDate) {
+                localStorage.setItem('lastResetDate', currentDate);
+                return true;
+            }
+            
+            return false;
+        }
+        
         // Create hockey puck confetti pieces
         for (let i = 0; i < 100; i++) {
             const puck = document.createElement('div');
@@ -461,9 +474,10 @@
                 item.classList.add('checked');
                 localStorage.setItem(itemId, 'true');
                 
-                // Play check sound
+                // Play check sound with reduced volume
                 const checkSound = document.getElementById('checkSound');
                 if (checkSound) {
+                    checkSound.volume = 0.5; // Reduce volume to 50%
                     checkSound.currentTime = 0;
                     checkSound.play().catch(e => console.log('Error playing sound:', e));
                 }
@@ -499,9 +513,10 @@
             
             if (percentage === 100) {
                 celebrateCompletion();
-                // Play completion sound
+                // Play completion sound with reduced volume
                 const completeSound = document.getElementById('completeSound');
                 if (completeSound) {
+                    completeSound.volume = 0.6; // Reduce volume to 60%
                     completeSound.currentTime = 0;
                     completeSound.play().catch(e => console.log('Error playing sound:', e));
                 }
@@ -577,6 +592,15 @@
             alert(`Thanks! ${email} has been added to our list.`);
             this.querySelector('input[type="email"]').value = '';
         });
+        
+        // Check if we should reset the checklist (it's a new day)
+        if (shouldResetChecklist()) {
+            checkItems.forEach(item => {
+                item.classList.remove('checked');
+                const itemId = item.getAttribute('data-id');
+                localStorage.setItem(itemId, 'false');
+            });
+        }
         
         // Check on initial load
         updateProgress();
