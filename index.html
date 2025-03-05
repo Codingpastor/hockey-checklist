@@ -517,7 +517,7 @@
                 // Play check sound with reduced volume
                 const checkSound = document.getElementById('checkSound');
                 if (checkSound) {
-                    checkSound.volume = 0.25; // Reduce volume to 25%
+                    checkSound.volume = 0.1; // Reduce volume to 25%
                     checkSound.currentTime = 0;
                     checkSound.play().catch(e => console.log('Error playing sound:', e));
                 }
