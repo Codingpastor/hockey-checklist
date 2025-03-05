@@ -517,7 +517,7 @@
                 // Play check sound with reduced volume
                 const checkSound = document.getElementById('checkSound');
                 if (checkSound) {
-                    checkSound.volume = 0.1; // Reduce volume to 25%
+                    checkSound.volume = 0.05; // Reduce volume to 25%
                     checkSound.currentTime = 0;
                     checkSound.play().catch(e => console.log('Error playing sound:', e));
                 }
@@ -562,7 +562,7 @@
                 // Play completion sound with reduced volume
                 const completeSound = document.getElementById('completeSound');
                 if (completeSound) {
-                    completeSound.volume = 0.6; // Reduce volume to 60%
+                    completeSound.volume = 0.3; // Reduce volume to 60%
                     completeSound.currentTime = 0;
                     completeSound.play().catch(e => console.log('Error playing sound:', e));
                 }
