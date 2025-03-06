@@ -653,7 +653,7 @@
                 // Play completion sound with reduced volume
                 const completeSound = document.getElementById('completeSound');
                 if (completeSound) {
-                    completeSound.volume = 0.1; // Reduce volume to 60%
+                    completeSound.volume = 0.05; // Reduce volume to 60%
                     completeSound.currentTime = 0;
                     completeSound.play().catch(e => console.log('Error playing sound:', e));
                 }
