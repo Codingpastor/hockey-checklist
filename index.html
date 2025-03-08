@@ -10,7 +10,18 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hockey Gear Checklist</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free hockey gear checklist to ensure players never forget equipment. Separate lists for players and goalies, with sound effects. Perfect for hockey parents and youth players.">
+    <meta name="keywords" content="hockey, hockey gear, hockey equipment, hockey checklist, hockey parents, youth hockey, hockey gear list, hockey goalie, hockey player">
+    
+    <!-- Open Graph / Social Media Tags -->
+    <meta property="og:title" content="Hockey Gear Check | Never Forget Equipment Again">
+    <meta property="og:description" content="Free hockey gear checklist to ensure players never forget equipment. Separate lists for players and goalies.">
+    <meta property="og:url" content="https://hockeygearcheck.com">
+    <meta property="og:type" content="website">
+    
+    <title>Hockey Gear Check | Never Forget Hockey Equipment Again</title>
     <!-- Mailchimp styles -->
     <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
     <style type="text/css">
@@ -74,6 +85,40 @@
     </style>
     
     <style>
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover, 
+        .nav-link.active {
+            color: var(--primary);
+        }
         :root {
             --primary: #4361ee;
             --primary-dark: #3a56d4;
@@ -522,6 +567,14 @@
     <audio id="checkSound" src="/shot.mp3" preload="auto"></audio>
     <audio id="completeSound" src="/horn.mp3" preload="auto"></audio>
     
+        <div class="navigation">
+        <div class="nav-logo">🏒 Hockey Gear Check</div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+        </div>
+    </div>
+    
     <header>
         <h1>🏒 HOCKEY GEAR CHECKLIST 🏒</h1>
         <p class="subtitle">Kids will never forget a piece of equipment again!</p>
@@ -733,7 +786,8 @@
     </div>
     
     <footer>
-        <p>© 2025 Hockey Gear Checklist | Created with ❤️ for hockey players</p>
+        <p>© 2025 Hockey Gear Check | Created with ❤️ for hockey players</p>
+        <p><a href="about.html" style="color: #666; text-decoration: underline;">About Us</a> | <a href="index.html" style="color: #666; text-decoration: underline;">Checklist</a></p>
     </footer>
     
     <script>
