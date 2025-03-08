@@ -420,35 +420,66 @@
         .top-controls {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 20px;
             margin-bottom: 20px;
         }
         
-        .control-button {
-            padding: 10px 15px;
-            border-radius: 8px;
+        /* Toggle switch container */
+        .toggle-container {
+            background-color: white;
+            border-radius: 30px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            padding: 5px;
+            display: flex;
+            position: relative;
+            width: 280px;
+            height: 46px;
+            margin: 0 auto;
+        }
+        
+        /* Toggle switch slider */
+        .toggle-slider {
+            position: absolute;
+            height: 36px;
+            width: 50%;
+            top: 5px;
+            left: 5px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            transition: all 0.3s ease;
+            z-index: 1;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Positioning for active state */
+        .toggle-container.active .toggle-slider {
+            left: calc(50% - 5px);
+        }
+        
+        /* Toggle options */
+        .toggle-option {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
             font-weight: bold;
+            z-index: 2;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            color: var(--dark);
         }
         
-        .mute-button {
-            background: linear-gradient(135deg, #6b7280, #4b5563);
+        /* Active option text color */
+        .toggle-container .toggle-option.active {
+            color: white;
         }
         
-        .mute-button.active {
-            background: linear-gradient(135deg, #ef476f, #d64062);
-        }
-        
-        .goalie-button {
-            background: linear-gradient(135deg, #ff9933, #e68a00);
-        }
-        
-        .goalie-button.active {
-            background: linear-gradient(135deg, #06d6a0, #05b084);
+        /* Icon in toggle options */
+        .toggle-icon {
+            margin-right: 5px;
+            font-size: 1.1rem;
         }
         
         .button-icon {
@@ -477,9 +508,10 @@
             
             .top-controls {
                 flex-direction: column;
+                gap: 15px;
             }
             
-            .control-button {
+            .toggle-container {
                 width: 100%;
             }
         }
@@ -497,12 +529,25 @@
     
     <div class="container">
         <div class="top-controls">
-            <button id="muteButton" class="button control-button mute-button">
-                <span class="button-icon">🔊</span>Sound ON
-            </button>
-            <button id="goalieButton" class="button control-button goalie-button">
-                <span class="button-icon">🥅</span>Goalie Mode
-            </button>
+            <div class="toggle-container" id="soundToggle">
+                <div class="toggle-slider"></div>
+                <div class="toggle-option active" data-value="on">
+                    <span class="toggle-icon">🔊</span>Sound ON
+                </div>
+                <div class="toggle-option" data-value="off">
+                    <span class="toggle-icon">🔇</span>Sound OFF
+                </div>
+            </div>
+            
+            <div class="toggle-container" id="playerToggle">
+                <div class="toggle-slider"></div>
+                <div class="toggle-option active" data-value="player">
+                    <span class="toggle-icon">🏒</span>Player
+                </div>
+                <div class="toggle-option" data-value="goalie">
+                    <span class="toggle-icon">🥅</span>Goalie
+                </div>
+            </div>
         </div>
         
         <div class="card" id="playerChecklist">
@@ -703,8 +748,7 @@
         const progressTextPlayer = document.getElementById('progressTextPlayer');
         const progressBarGoalie = document.getElementById('progressBarGoalie');
         const progressTextGoalie = document.getElementById('progressTextGoalie');
-        const muteButton = document.getElementById('muteButton');
-        const goalieButton = document.getElementById('goalieButton');
+        // We'll use the toggle containers instead of individual buttons
         const playerChecklist = document.getElementById('playerChecklist');
         const goalieChecklist = document.getElementById('goalieChecklist');
         
@@ -731,34 +775,49 @@
             celebration.appendChild(puck);
         }
         
-        // Toggle mute button
-        muteButton.addEventListener('click', () => {
-            isMuted = !isMuted;
-            if (isMuted) {
-                muteButton.innerHTML = '<span class="button-icon">🔇</span>Sound OFF';
-                muteButton.classList.add('active');
+        // Get the toggle containers and options
+        const soundToggle = document.getElementById('soundToggle');
+        const playerToggle = document.getElementById('playerToggle');
+        const soundOptions = soundToggle.querySelectorAll('.toggle-option');
+        const playerOptions = playerToggle.querySelectorAll('.toggle-option');
+        
+        // Toggle sound function
+        soundToggle.addEventListener('click', (event) => {
+            const clickedOption = event.target.closest('.toggle-option');
+            if (!clickedOption) return;
+            
+            // Update active classes
+            soundOptions.forEach(option => option.classList.remove('active'));
+            clickedOption.classList.add('active');
+            
+            // Toggle the slider position
+            if (clickedOption.dataset.value === 'off') {
+                soundToggle.classList.add('active');
+                isMuted = true;
             } else {
-                muteButton.innerHTML = '<span class="button-icon">🔊</span>Sound ON';
-                muteButton.classList.remove('active');
+                soundToggle.classList.remove('active');
+                isMuted = false;
             }
         });
         
-        // Toggle goalie mode
-        goalieButton.addEventListener('click', () => {
-            const isGoalieMode = playerChecklist.style.display === 'none';
+        // Toggle player/goalie mode
+        playerToggle.addEventListener('click', (event) => {
+            const clickedOption = event.target.closest('.toggle-option');
+            if (!clickedOption) return;
             
-            if (isGoalieMode) {
-                // Switch to player mode
-                playerChecklist.style.display = 'block';
-                goalieChecklist.style.display = 'none';
-                goalieButton.innerHTML = '<span class="button-icon">🥅</span>Goalie Mode';
-                goalieButton.classList.remove('active');
-            } else {
-                // Switch to goalie mode
+            // Update active classes
+            playerOptions.forEach(option => option.classList.remove('active'));
+            clickedOption.classList.add('active');
+            
+            // Toggle the slider position and show appropriate checklist
+            if (clickedOption.dataset.value === 'goalie') {
+                playerToggle.classList.add('active');
                 playerChecklist.style.display = 'none';
                 goalieChecklist.style.display = 'block';
-                goalieButton.innerHTML = '<span class="button-icon">🏒</span>Player Mode';
-                goalieButton.classList.add('active');
+            } else {
+                playerToggle.classList.remove('active');
+                playerChecklist.style.display = 'block';
+                goalieChecklist.style.display = 'none';
             }
         });
         
