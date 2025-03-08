@@ -416,7 +416,50 @@
             75% {transform: rotate(-5deg);}
         }
         
-        /* Remove hockey rink animation */
+        /* Button styles for top controls */
+        .top-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .control-button {
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mute-button {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+        }
+        
+        .mute-button.active {
+            background: linear-gradient(135deg, #ef476f, #d64062);
+        }
+        
+        .goalie-button {
+            background: linear-gradient(135deg, #ff9933, #e68a00);
+        }
+        
+        .goalie-button.active {
+            background: linear-gradient(135deg, #06d6a0, #05b084);
+        }
+        
+        .button-icon {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        /* Hide goalie checklist by default */
+        #goalieChecklist {
+            display: none;
+        }
         
         @media (max-width: 600px) {
             .email-form {
@@ -430,6 +473,14 @@
             
             h1 {
                 font-size: 2rem;
+            }
+            
+            .top-controls {
+                flex-direction: column;
+            }
+            
+            .control-button {
+                width: 100%;
             }
         }
     </style>
@@ -445,13 +496,24 @@
     </header>
     
     <div class="container">
-        <div class="card">
+        <div class="top-controls">
+            <button id="muteButton" class="button control-button mute-button">
+                <span class="button-icon">🔊</span>Sound ON
+            </button>
+            <button id="goalieButton" class="button control-button goalie-button">
+                <span class="button-icon">🥅</span>Goalie Mode
+            </button>
+        </div>
+        
+        <div class="card" id="playerChecklist">
             <div class="progress-container">
                 <div class="progress-bar">
-                    <div class="progress" id="progressBar"></div>
+                    <div class="progress" id="progressBarPlayer"></div>
                 </div>
-                <div class="progress-text" id="progressText">0% Complete</div>
+                <div class="progress-text" id="progressTextPlayer">0% Complete</div>
             </div>
+            
+            <h2 class="section-title">Player Checklist</h2>
             
             <div class="checklist">
                 <div class="check-item" data-id="jock">
@@ -511,7 +573,71 @@
                     <div class="check-text"><span class="gear-icon">😁</span>Mouth guard</div>
                 </div>
                 
-                <button id="resetButton" class="button reset-button">CLEAR EVERYTHING! 🧹</button>
+                <button id="resetButtonPlayer" class="button reset-button">CLEAR EVERYTHING! 🧹</button>
+            </div>
+        </div>
+        
+        <div class="card" id="goalieChecklist">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progressBarGoalie"></div>
+                </div>
+                <div class="progress-text" id="progressTextGoalie">0% Complete</div>
+            </div>
+            
+            <h2 class="section-title">Goalie Checklist</h2>
+            
+            <div class="checklist">
+                <div class="check-item" data-id="goalie-pads">
+                    <div class="check-box"><span class="check-mark">✓</span></div>
+                    <div class="check-text"><span class="gear-icon">🛡️</span>Goalie Pads</div>
+                </div>
+                <div class="check-item" data-id="goalie-mask">
+                    <div class="check-box"><span class="check-mark">✓</span></div>
+                    <div class="check-text"><span class="gear-icon">🪖</span>Goalie Mask</div>
+                </div>
+                <div class="check-item" data-id="neck-guard">
+                    <div class="check-box"><span class="check-mark">✓</span></div>
+                    <div class="check-text"><span class="gear-icon">👔</span>Neck Guard</div>
+                </div>
+                <div class="check-item" data-id="chest-protector">
+                    <div class="check-box"><span class="check-mark">✓</span></div>
+                    <div class="check-text"><span class="gear-icon">🛡️</span>Chest Protector</div>
+                </div>
+                <div class="check-item" data-id="blocker">
+                    <div class="check-box"><span class="check-mark">✓</span></div>
+                    <div class="check-text"><span class="gear-icon">🛡️</span>Blocker</div>
+                </div>
+                <div class="check-item" data-id="catcher">
+                    <div class="check-box"><span class="check-mark">✓</span></div>
+                    <div class="check-text"><span class="gear-icon">🧤</span>Catcher</div>
+                </div>
+                <div class="check-item" data-id="goalie-jock">
+                    <div class="check-box"><span class="check-mark">✓</span></div>
+                    <div class="check-text"><span class="gear-icon">🩲</span>Jock/Jill</div>
+                </div>
+                <div class="check-item" data-id="goalie-pants">
+                    <div class="check-box"><span class="check-mark">✓</span></div>
+                    <div class="check-text"><span class="gear-icon">👖</span>Pants</div>
+                </div>
+                <div class="check-item" data-id="knee-pads">
+                    <div class="check-box"><span class="check-mark">✓</span></div>
+                    <div class="check-text"><span class="gear-icon">🛡️</span>Knee Pads</div>
+                </div>
+                <div class="check-item" data-id="goalie-skates">
+                    <div class="check-box"><span class="check-mark">✓</span></div>
+                    <div class="check-text"><span class="gear-icon">⛸️</span>Skates</div>
+                </div>
+                <div class="check-item" data-id="goalie-stick">
+                    <div class="check-box"><span class="check-mark">✓</span></div>
+                    <div class="check-text"><span class="gear-icon">🏒</span>Stick</div>
+                </div>
+                <div class="check-item" data-id="goalie-water">
+                    <div class="check-box"><span class="check-mark">✓</span></div>
+                    <div class="check-text"><span class="gear-icon">💧</span>Water Bottle</div>
+                </div>
+                
+                <button id="resetButtonGoalie" class="button reset-button">CLEAR EVERYTHING! 🧹</button>
             </div>
         </div>
 
@@ -569,10 +695,21 @@
         // Get elements
         const celebration = document.getElementById('celebration');
         const completeMessage = document.getElementById('completeMessage');
-        const resetButton = document.getElementById('resetButton');
-        const checkItems = document.querySelectorAll('.check-item');
-        const progressBar = document.getElementById('progressBar');
-        const progressText = document.getElementById('progressText');
+        const resetButtonPlayer = document.getElementById('resetButtonPlayer');
+        const resetButtonGoalie = document.getElementById('resetButtonGoalie');
+        const playerCheckItems = document.querySelectorAll('#playerChecklist .check-item');
+        const goalieCheckItems = document.querySelectorAll('#goalieChecklist .check-item');
+        const progressBarPlayer = document.getElementById('progressBarPlayer');
+        const progressTextPlayer = document.getElementById('progressTextPlayer');
+        const progressBarGoalie = document.getElementById('progressBarGoalie');
+        const progressTextGoalie = document.getElementById('progressTextGoalie');
+        const muteButton = document.getElementById('muteButton');
+        const goalieButton = document.getElementById('goalieButton');
+        const playerChecklist = document.getElementById('playerChecklist');
+        const goalieChecklist = document.getElementById('goalieChecklist');
+        
+        // Sound state
+        let isMuted = false;
         
         // Function to reset checklist on every visit
         function shouldResetChecklist() {
@@ -594,23 +731,57 @@
             celebration.appendChild(puck);
         }
         
+        // Toggle mute button
+        muteButton.addEventListener('click', () => {
+            isMuted = !isMuted;
+            if (isMuted) {
+                muteButton.innerHTML = '<span class="button-icon">🔇</span>Sound OFF';
+                muteButton.classList.add('active');
+            } else {
+                muteButton.innerHTML = '<span class="button-icon">🔊</span>Sound ON';
+                muteButton.classList.remove('active');
+            }
+        });
+        
+        // Toggle goalie mode
+        goalieButton.addEventListener('click', () => {
+            const isGoalieMode = playerChecklist.style.display === 'none';
+            
+            if (isGoalieMode) {
+                // Switch to player mode
+                playerChecklist.style.display = 'block';
+                goalieChecklist.style.display = 'none';
+                goalieButton.innerHTML = '<span class="button-icon">🥅</span>Goalie Mode';
+                goalieButton.classList.remove('active');
+            } else {
+                // Switch to goalie mode
+                playerChecklist.style.display = 'none';
+                goalieChecklist.style.display = 'block';
+                goalieButton.innerHTML = '<span class="button-icon">🏒</span>Player Mode';
+                goalieButton.classList.add('active');
+            }
+        });
+        
         // Toggle item checked state
-        function toggleItem(item) {
+        function toggleItem(item, isGoalieMode) {
             const itemId = item.getAttribute('data-id');
+            const storageKey = isGoalieMode ? `goalie-${itemId}` : `player-${itemId}`;
             
             if (item.classList.contains('checked')) {
                 item.classList.remove('checked');
-                localStorage.setItem(itemId, 'false');
+                localStorage.setItem(storageKey, 'false');
             } else {
                 item.classList.add('checked');
-                localStorage.setItem(itemId, 'true');
+                localStorage.setItem(storageKey, 'true');
                 
-                // Play check sound with reduced volume
-                const checkSound = document.getElementById('checkSound');
-                if (checkSound) {
-                    checkSound.volume = 0.05; // Reduce volume to 25%
-                    checkSound.currentTime = 0;
-                    checkSound.play().catch(e => console.log('Error playing sound:', e));
+                // Play check sound if not muted
+                if (!isMuted) {
+                    const checkSound = document.getElementById('checkSound');
+                    if (checkSound) {
+                        checkSound.volume = 0.05; // Reduce volume to 5%
+                        checkSound.currentTime = 0;
+                        checkSound.play().catch(e => console.log('Error playing sound:', e));
+                    }
                 }
                 
                 // Add a fun animation when checking an item
@@ -620,14 +791,14 @@
                 }, 500);
             }
             
-            updateProgress();
+            updateProgress(isGoalieMode);
         }
         
-        // Make items clickable
-        checkItems.forEach(item => {
+        // Make player items clickable
+        playerCheckItems.forEach(item => {
             // Load saved state
             const itemId = item.getAttribute('data-id');
-            const savedState = localStorage.getItem(itemId);
+            const savedState = localStorage.getItem(`player-${itemId}`);
             
             if (savedState === 'true') {
                 item.classList.add('checked');
@@ -635,14 +806,34 @@
             
             // Make the whole item clickable
             item.addEventListener('click', () => {
-                toggleItem(item);
+                toggleItem(item, false);
+            });
+        });
+        
+        // Make goalie items clickable
+        goalieCheckItems.forEach(item => {
+            // Load saved state
+            const itemId = item.getAttribute('data-id');
+            const savedState = localStorage.getItem(`goalie-${itemId}`);
+            
+            if (savedState === 'true') {
+                item.classList.add('checked');
+            }
+            
+            // Make the whole item clickable
+            item.addEventListener('click', () => {
+                toggleItem(item, true);
             });
         });
         
         // Update progress bar
-        function updateProgress() {
-            const total = checkItems.length;
-            const checked = document.querySelectorAll('.check-item.checked').length;
+        function updateProgress(isGoalieMode) {
+            const items = isGoalieMode ? goalieCheckItems : playerCheckItems;
+            const progressBar = isGoalieMode ? progressBarGoalie : progressBarPlayer;
+            const progressText = isGoalieMode ? progressTextGoalie : progressTextPlayer;
+            
+            const total = items.length;
+            const checked = Array.from(items).filter(item => item.classList.contains('checked')).length;
             const percentage = Math.floor((checked / total) * 100);
             
             progressBar.style.width = percentage + '%';
@@ -650,12 +841,14 @@
             
             if (percentage === 100) {
                 celebrateCompletion();
-                // Play completion sound with reduced volume
-                const completeSound = document.getElementById('completeSound');
-                if (completeSound) {
-                    completeSound.volume = 0.05; // Reduce volume to 60%
-                    completeSound.currentTime = 0;
-                    completeSound.play().catch(e => console.log('Error playing sound:', e));
+                // Play completion sound if not muted
+                if (!isMuted) {
+                    const completeSound = document.getElementById('completeSound');
+                    if (completeSound) {
+                        completeSound.volume = 0.05; // Reduce volume to 5%
+                        completeSound.currentTime = 0;
+                        completeSound.play().catch(e => console.log('Error playing sound:', e));
+                    }
                 }
             } else {
                 hideAllCelebrations();
@@ -705,42 +898,58 @@
             });
         }
         
-        // Reset button functionality
-        resetButton.addEventListener('click', () => {
-            checkItems.forEach(item => {
+        // Reset button functionality for player checklist
+        resetButtonPlayer.addEventListener('click', () => {
+            playerCheckItems.forEach(item => {
                 item.classList.remove('checked');
                 const itemId = item.getAttribute('data-id');
-                localStorage.setItem(itemId, 'false');
+                localStorage.setItem(`player-${itemId}`, 'false');
             });
             
-            updateProgress();
+            updateProgress(false);
             
             // Animate reset button
-            resetButton.style.transform = 'scale(1.1)';
+            resetButtonPlayer.style.transform = 'scale(1.1)';
             setTimeout(() => {
-                resetButton.style.transform = 'scale(1)';
+                resetButtonPlayer.style.transform = 'scale(1)';
             }, 200);
         });
         
-        // Simple form submission
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            alert(`Thanks! ${email} has been added to our list.`);
-            this.querySelector('input[type="email"]').value = '';
+        // Reset button functionality for goalie checklist
+        resetButtonGoalie.addEventListener('click', () => {
+            goalieCheckItems.forEach(item => {
+                item.classList.remove('checked');
+                const itemId = item.getAttribute('data-id');
+                localStorage.setItem(`goalie-${itemId}`, 'false');
+            });
+            
+            updateProgress(true);
+            
+            // Animate reset button
+            resetButtonGoalie.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                resetButtonGoalie.style.transform = 'scale(1)';
+            }, 200);
         });
         
         // Reset the checklist on every page visit
         if (shouldResetChecklist()) {
-            checkItems.forEach(item => {
+            playerCheckItems.forEach(item => {
                 item.classList.remove('checked');
                 const itemId = item.getAttribute('data-id');
-                localStorage.setItem(itemId, 'false');
+                localStorage.setItem(`player-${itemId}`, 'false');
+            });
+            
+            goalieCheckItems.forEach(item => {
+                item.classList.remove('checked');
+                const itemId = item.getAttribute('data-id');
+                localStorage.setItem(`goalie-${itemId}`, 'false');
             });
         }
         
         // Check on initial load
-        updateProgress();
+        updateProgress(false);
+        updateProgress(true);
     </script>
 </body>
 </html>
