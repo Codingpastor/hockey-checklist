@@ -563,6 +563,43 @@
         }
     </style>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- Added HowTo Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Use the Hockey Gear Checklist",
+      "description": "Ensure you never forget hockey equipment for a game or practice using this interactive checklist.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Select Mode",
+          "text": "Choose between 'Player' or 'Goalie' mode using the toggle switch at the top to display the relevant checklist.",
+          "url": "#playerToggle" 
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Check Items",
+          "text": "Click on each item in the list as you pack it into your hockey bag. The item will be marked as checked.",
+          "url": "#playerChecklist" 
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Monitor Progress",
+          "text": "Observe the progress bar at the top of the checklist. It updates automatically as you check items, showing your completion percentage.",
+          "url": "#playerProgressContainer" 
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Reset Checklist",
+          "text": "Once finished or for the next use, click the 'CLEAR EVERYTHING!' button at the bottom of the checklist to reset all items.",
+          "url": "#resetButtonPlayer" 
+        }
+      ],
+      "totalTime": "PT5M" // Estimated time: 5 minutes
+    }
+    </script>
 </head>
 <body>
     <!-- Audio elements for sound effects with reduced volume -->
